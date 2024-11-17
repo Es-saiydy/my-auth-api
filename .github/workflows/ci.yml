@@ -23,7 +23,7 @@ jobs:
   # Étape 2 : Tests (test)
   test:
     runs-on: ubuntu-latest
-    needs: validate  # Dépend de l'étape 'validate'
+    needs: validate  
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -39,7 +39,7 @@ jobs:
   # Étape 3 : Build (build)
   build:
     runs-on: ubuntu-latest
-    needs: test  # Dépend de l'étape 'test'
+    needs: test 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -50,7 +50,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build the application
-        run: npm run build  # Assurez-vous que ce script génère bien le répertoire 'dist'
+        run: npm run build 
       - name: Verify dist directory
         run: |
           if [ -d "dist" ]; then
@@ -64,7 +64,7 @@ jobs:
   # Étape 4 : Release (release)
   release:
     runs-on: ubuntu-latest
-    needs: build  # Dépend de l'étape 'build'
+    needs: build  
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -90,7 +90,7 @@ jobs:
   # Étape 5 : Deployment (deploy)
   deploy:
     runs-on: ubuntu-latest
-    needs: release  # Dépend de l'étape 'release'
+    needs: release  
     steps:
       - name: Deploy application
         run: echo "Deployment step goes here (e.g., uploading files to a server)"

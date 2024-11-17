@@ -17,7 +17,7 @@ export default [
       node: nodePlugin,
     },
     rules: {
-      // Définissez vos règles ici
+      
     },
   },
 ];
