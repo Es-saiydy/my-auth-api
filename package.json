@@ -4,8 +4,8 @@
   "description": "API d'authentification",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "index.js",
+    "test": "echo 'No tests specified'",
+    "start": "node index.js",
     "lint": "eslint . --max-warnings=0"
   },
   "author": "Abir Es-saiydy",
