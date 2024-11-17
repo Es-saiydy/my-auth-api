@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo 'No tests specified'",
     "start": "node index.js",
-    "lint": "eslint . --max-warnings=0"
+    "lint": "eslint . --max-warnings=0",
+    "build": "echo 'Building the application...'"
   },
   "author": "Abir Es-saiydy",
   "license": "ISC",
