@@ -50,7 +50,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build the application
-        run: npm run build
+        run: npm run build  # Assurez-vous que ce script génère bien le répertoire 'dist'
 
   # Étape 4 : Release (release)
   release:
@@ -59,11 +59,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Check if dist exists
+      - name: Check if dist exists and list files
         run: |
           if [ ! -d "dist" ]; then
             echo "Directory dist does not exist, skipping release step."
             exit 0  # Sortir proprement si dist n'existe pas
+          else
+            echo "Directory dist exists. Listing files:"
+            ls -R dist  # Affiche le contenu de dist
           fi
       - name: Create release artifact
         run: |
