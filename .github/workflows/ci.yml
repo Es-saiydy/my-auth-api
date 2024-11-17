@@ -3,26 +3,70 @@ name: Node.js CI
 on:
   push:
     branches:
-      - main  # Cette configuration est exécutée uniquement lorsque des modifications sont poussées sur la branche principale.
+      - main  # Exécuter sur chaque push vers la branche principale
   pull_request:
     branches:
-      - main  # Elle sera aussi déclenchée lorsque des PR (Pull Requests) sont créées pour la branche principale.
+      - main  # Exécuter pour les pull requests vers la branche principale
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # L'environnement d'exécution, ici une machine Ubuntu.
-    
+    runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2  # Cette étape permet de récupérer les fichiers du dépôt.
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16'  # Choisir la version de Node.js à utiliser.
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
 
-    - name: Install dependencies
-      run: npm install  # Cette étape installe les dépendances du projet.
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules/
+            .npm/
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-    - name: Run tests
-      run: npm test  # Si vous avez des tests configurés dans votre projet, cette étape les exécutera.
+      - name: Install dependencies
+        run: npm install
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Deploy the app
+        run: |
+          echo "Déploiement de l'application..."
+          # Ajoutez ici les commandes spécifiques à votre déploiement
