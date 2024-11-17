@@ -11,11 +11,11 @@
   "author": "Abir Es-saiydy",
   "license": "ISC",
   "dependencies": {
+    "eslint": "^8.57.1",
     "express": "^4.17.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
-    "eslint": "^9.15.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-node": "^11.1.0",
