@@ -3,10 +3,10 @@ name: Node.js CI
 on:
   push:
     branches:
-      - main  # Exécuter sur chaque push vers la branche principale
+      - main
   pull_request:
     branches:
-      - main  # Exécuter pour les pull requests vers la branche principale
+      - main
 
 jobs:
   build:
@@ -45,6 +45,14 @@ jobs:
         with:
           node-version: '16'
 
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules/
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Install dependencies
         run: npm install
 
@@ -62,6 +70,14 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules/
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: npm install
