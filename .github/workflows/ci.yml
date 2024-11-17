@@ -1,0 +1,28 @@
+name: Node.js CI
+
+on:
+  push:
+    branches:
+      - main  # Cette configuration est exécutée uniquement lorsque des modifications sont poussées sur la branche principale.
+  pull_request:
+    branches:
+      - main  # Elle sera aussi déclenchée lorsque des PR (Pull Requests) sont créées pour la branche principale.
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # L'environnement d'exécution, ici une machine Ubuntu.
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2  # Cette étape permet de récupérer les fichiers du dépôt.
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'  # Choisir la version de Node.js à utiliser.
+
+    - name: Install dependencies
+      run: npm install  # Cette étape installe les dépendances du projet.
+
+    - name: Run tests
+      run: npm test  # Si vous avez des tests configurés dans votre projet, cette étape les exécutera.
