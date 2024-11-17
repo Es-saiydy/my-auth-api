@@ -7,7 +7,7 @@
     "test": "echo 'No tests specified'",
     "start": "node index.js",
     "lint": "eslint . --max-warnings=0",
-    "build": "mkdir -p dist && echo 'Build successful' > dist/index.html"
+   "build": "mkdir -p dist && echo 'Build successful' > dist/index.html"
   },
   "author": "Abir Es-saiydy",
   "license": "ISC",
