@@ -2,13 +2,21 @@
   "name": "mon-auth-api",
   "version": "1.0.0",
   "description": "API d'authentification",
-  "main": "index.js",
+  "main": "index.js",  
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1", 
+    "start": "index.js",  
+    "lint": "eslint . --max-warnings=0"
   },
   "author": "Abir Es-saiydy",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-node": "^11.1.0"
   }
 }
