@@ -1,13 +1,12 @@
-# Pipeline de CI/CD complet
 name: Node.js CI Pipeline
 
 on:
   push:
     branches:
-      - main
+      - main  # Exécute le pipeline lorsque des changements sont poussés sur la branche principale
   pull_request:
     branches:
-      - main
+      - main  # Exécute le pipeline pour les Pull Requests sur la branche principale
 
 jobs:
   # Étape 1 : Validation (validate)
@@ -24,14 +23,14 @@ jobs:
   # Étape 2 : Tests (test)
   test:
     runs-on: ubuntu-latest
-    needs: validate
+    needs: validate  # Dépend de l'étape 'validate'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '16'  # Spécifie la version de Node.js
       - name: Install dependencies
         run: npm ci
       - name: Run tests
@@ -40,7 +39,7 @@ jobs:
   # Étape 3 : Build (build)
   build:
     runs-on: ubuntu-latest
-    needs: test
+    needs: test  # Dépend de l'étape 'test'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -51,23 +50,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build the application
-        run: |
-          npm run build
-          ls -R dist  # Vérifiez que le dossier 'dist' existe et contient des fichiers
+        run: npm run build
 
   # Étape 4 : Release (release)
   release:
     runs-on: ubuntu-latest
-    needs: build
+    needs: build  # Dépend de l'étape 'build'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Check if dist exists
-        run: |
-          if [ ! -d "dist" ]; then
-            echo "Directory dist does not exist, skipping release step."
-            exit 0  # Sortir proprement si dist n'existe pas
-          fi
       - name: Create release artifact
         run: |
           mkdir release
@@ -78,10 +69,10 @@ jobs:
           name: release-files
           path: release/
 
-  # Étape 5 : Déploiement (deploy)
+  # Étape 5 : Deployment (deploy)
   deploy:
     runs-on: ubuntu-latest
-    needs: release
+    needs: release  # Dépend de l'étape 'release'
     steps:
       - name: Deploy application
         run: echo "Deployment step goes here (e.g., uploading files to a server)"
